@@ -20,7 +20,7 @@
         </p>
         <div class="hero-actions">
             <a href="{{ url_for('register') }}" class="btn-primary">Create free account</a>
-            <a href="#features" class="btn-primary btn-primary-alt">See how it works</a>
+            <a href="#features" class="btn-primary btn-primary-alt" data-modal-open>See how it works</a>
         </div>
     </div>
     <div class="hero-visual">
@@ -101,4 +101,60 @@
     </div>
 </section>
 
+<div class="modal" id="video-modal" hidden>
+    <div class="modal-backdrop" data-modal-close></div>
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-label="How Spendly works">
+        <button type="button" class="modal-close" data-modal-close aria-label="Close video">×</button>
+        <div class="modal-video">
+            <!-- Placeholder video — swap the data-src id for the real one. -->
+            <iframe
+                data-src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ?rel=0&autoplay=1"
+                title="How Spendly works"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+    const modal = document.getElementById('video-modal');
+    const opener = document.querySelector('[data-modal-open]');
+    const iframe = modal.querySelector('iframe');
+    let lastFocused = null;
+
+    function open(e) {
+        e.preventDefault();
+        lastFocused = document.activeElement;
+        // Setting src here rather than in the markup keeps the video from
+        // loading until it is asked for.
+        iframe.src = iframe.dataset.src;
+        modal.hidden = false;
+        document.body.classList.add('modal-open');
+        modal.querySelector('.modal-close').focus();
+    }
+
+    function close() {
+        modal.hidden = true;
+        document.body.classList.remove('modal-open');
+        // Tearing down the iframe is what stops playback — hiding it alone
+        // would leave the audio running.
+        iframe.removeAttribute('src');
+        if (lastFocused) lastFocused.focus();
+    }
+
+    opener.addEventListener('click', open);
+
+    modal.querySelectorAll('[data-modal-close]').forEach(function (el) {
+        el.addEventListener('click', close);
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !modal.hidden) close();
+    });
+})();
+</script>
 {% endblock %}
