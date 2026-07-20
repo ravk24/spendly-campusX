@@ -12,7 +12,7 @@ Because of this, **do not implement the stubbed steps unless explicitly asked** 
 
 The venv is committed-adjacent but gitignored; use its interpreter directly (Windows layout — `Scripts`, not `bin`):
 
-```bash
+```shell
 ./venv/Scripts/python.exe -m pip install -q -r requirements.txt
 ./venv/Scripts/python.exe app.py          # dev server, debug on, http://127.0.0.1:5001
 ./venv/Scripts/python.exe -m pytest                          # all tests
@@ -29,7 +29,7 @@ Get-CimInstance Win32_Process -Filter "Name='python.exe'" | Where-Object { $_.Co
 
 Pages are verified visually by screenshotting with headless Edge (see `.claude/settings.local.json` for the allowlisted invocations):
 
-```bash
+```shell
 "/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" --headless=new --disable-gpu --no-sandbox \
   --user-data-dir="$TEMP/claude/edgeprof" --screenshot="<scratchpad>/page.png" \
   --window-size=1200,1500 --hide-scrollbars "http://127.0.0.1:5001/"
