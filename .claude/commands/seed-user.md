@@ -6,7 +6,7 @@ allowed-tools: Read, Bash(python:*)
 Read database/db.py to understand the users table
 schema and the get_db() helper.
 
-Then write and run a Python script using Bash that:
+Then write and run a Python script using Shell that:
 
 1. Generates a realistic random Indian user using your
    own knowledge of common Indian names across regions:
