@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome — Spendly{% endblock %}
+
+{% block content %}
+
+<section class="welcome-section">
+    <header class="welcome-header">
+        <div class="welcome-avatar">{{ session['user_name'][0] | upper }}</div>
+        <div>
+            <h1 class="welcome-title">Welcome, {{ session['user_name'] }}</h1>
+            <p class="welcome-subtitle">You're signed in to Spendly. Expense tracking arrives in the upcoming steps.</p>
+        </div>
+    </header>
+</section>
+
+{% endblock %}
